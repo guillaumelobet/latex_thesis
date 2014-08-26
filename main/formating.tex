@@ -1,0 +1,331 @@
+%author Guillaume Lobet, Université catholique de Louvain
+%created 2012-10-14
+%document  PhD thesis - Formating
+%inspired from https://github.com/jrk/uggedal-thesis
+
+
+%========================== Text ================================
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+
+% For better text formatting
+\usepackage[
+	activate={true,nocompatibility},
+	final,
+	tracking=true,
+	kerning=true,
+	spacing=true,
+	factor=1100,
+	stretch=10,
+	shrink=10
+]{microtype}
+% activate={true,nocompatibility} - activate protrusion and expansion
+% final - enable microtype; use "draft" to disable
+% tracking=true, kerning=true, spacing=true - activate these techniques
+% factor=1100 - add 10% to the protrusion amount (default is 1000)
+% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
+
+\usepackage[pdftex,
+    plainpages=false
+    ]{hyperref}                 % Make hyperref in the pdf document
+
+%========================== Tables and figures ================================
+\usepackage[footnotesize,
+	labelfont=bf,
+	justification=centerlast
+	]{caption}                    % Formatting figure captions
+\usepackage{multirow}				% Merge rows in table
+\usepackage{multicol}    			% Merge column in table
+\usepackage{rotating}				% Rotate figures and tables
+\usepackage{tabularx}				% Customize tables
+\usepackage[pdftex]{graphicx}		% To include figure in the document
+
+
+%========================== Math ================================
+
+\usepackage{amsmath}				% Math package
+\usepackage{mathabx}				% Math package (diameter sign, degree)
+
+%========================== Style ================================
+
+\usepackage{fourier-orns}          % Nice ornaments
+\usepackage{adforn}                % Other nice ornaments
+\usepackage{lettrine} 			 % Lettrine for beginning of chapter
+\usepackage[usenames,dvipsnames]{xcolor}		% Color package
+
+
+\usepackage[subject={Final version},
+	author={G. Lobet},
+	color=red,
+	caption=inline,
+	linebegin={/Butt},
+	lineend={/Butt}
+	,final
+	]{pdfcomment}                % Add comments to the pdf
+	
+\usepackage{pageslts}				% Physical page number
+	
+
+%%========================== Index and biblio ================================
+
+\usepackage{makeidx}				% Index
+\usepackage[
+	style=authoryear-comp,         
+%	bibstyle=numeric, 
+	bibstyle=chem-biochem, 
+	maxcitenames=2, 
+	natbib=true, 
+	sortcites=true,
+%	doi=true, 
+	backref=true,
+]{biblatex}                     % Bibliography
+\bibliography{these}
+
+
+%%========================== Other ================================
+
+\usepackage{xspace}            % For new command creation
+\usepackage{xparse}            % For more complex command functions
+
+
+%%========================== Image Path ================================
+
+% Where are your images
+\graphicspath{
+{../images/general/}
+{../images/introduction/}
+}
+
+% Declare the type of image you are using
+\DeclareGraphicsExtensions{.jpg,.png, .tiff, .pdf}
+
+
+
+%========================== New colors ===============================
+
+\definecolor{red}{HTML}{AD1737}
+\definecolor{brown}{HTML}{990000}
+\definecolor{bar}{HTML}{8D9965}
+\definecolor{cornerstone}{HTML}{0B2E59}
+
+\definecolor{chapnum}{gray}{0.6}
+\definecolor{largeornament}{gray}{0.85}
+\definecolor{smallornament}{gray}{0.65}
+\definecolor{dark}{gray}{0.1}
+\definecolor{dark2}{gray}{0.3}
+\definecolor{light}{gray}{0.5}
+
+\colorlet{title}{red}
+\colorlet{partnum}{brown}
+\colorlet{urlcolor}{light}
+\colorlet{tocchapnum}{brown}
+
+%================== New commands ====================================
+
+% New command for easy figure citation
+\DeclareDocumentCommand\fig{om}{%
+  \IfNoValueTF{#1}%
+    {(fig. \ref{#2})}%
+    {(fig. \ref{#2}.#1)}%
+  \xspace
+}
+
+% New font
+\newfont{\chapnum}{bbold10 scaled 6000}\setlength{\beforechapskip}{0pt}
+\setlength{\beforechapskip}{0pt}
+
+
+% Creates an fourier ornament. Args: fontsize, lineheight, char
+\newcommand*{\fourierOrnament}[3]{{\fontencoding{U}\fontfamily{futs}\fontsize{#1}{#2}\selectfont\char#3}}
+
+
+%================ Page layout ====================================
+
+
+% Set the text block size
+%\settypeblocksize{50pc}{26pc}{}
+\settypeblocksize{41pc}{25pc}{}
+\setlrmargins{*}{*}{1}
+\setulmargins{*}{*}{1}%2
+\setmarginnotes{0pc}{10pc}{\baselineskip}%12
+\checkandfixthelayout
+
+
+% show the trims
+\trimFrame
+%\quarkmarks
+
+% Outer border (stock size)
+%\settrimmedsize{240mm}{160mm}{*} 
+%\settrims{28.5mm}{25mm}
+
+% Inner border
+\settrimmedsize{200mm}{120mm}{*} 
+\settrims{48.5mm}{45mm}
+
+\widowpenalty=500
+\clubpenalty=1000
+
+\maxsecnumdepth{subsection}
+
+
+
+%==========  Division style ====================================
+
+
+% Part style
+\renewcommand{\partnamefont}{\raggedright\HUGE\scshape\MakeUppercase}
+\renewcommand{\partnumfont}{\color{partnum}\HUGE\scshape\MakeUppercase\chapnum }
+\renewcommand{\parttitlefont}{\color{black}\raggedright\HUGE\scshape}
+\renewcommand{\printparttitle}[1]{\par\parttitlefont\MakeUppercase{#1}}
+
+\renewcommand*{\beforepartskip}{\null \vskip 0pt plus 0.7fil}
+\renewcommand*{\afterpartskip}{\vskip 0pt plus 0.3fil \newpage}
+
+% chapter style
+\makechapterstyle{glob}{%
+	\setlength{\beforechapskip}{0pt}
+	\renewcommand{\printchaptername}{}
+	\renewcommand{\chapternamenum}{}
+	\renewcommand{\printchapternum}{
+		\begin{flushright}
+		\color{chapnum}\chapnum \thechapter
+		\end{flushright}
+  }
+  \renewcommand{\afterchapternum}{\vspace{-60pt}}
+  \renewcommand{\printchaptertitle}[1]{
+	\begin{tabular}{@{}p{.8\linewidth}@{}}
+    \raggedright\huge\MakeUppercase{##1} \vspace{-20pt}
+    \end{tabular}
+  }%
+}
+
+% Section style
+\setsubsecheadstyle{\raggedright\large\itshape}
+\setsubsubsecheadstyle{\raggedright\itshape}
+
+
+%=========== Top and tails ====================================
+
+% Page style
+\makepagestyle{uio}
+\makeevenfoot{uio}{\thepage}{}{}
+\makeoddfoot{uio}{}{}{\thepage}
+\makeevenhead{uio}{\scshape\leftmark}{}{}
+\makeoddhead{uio}{}{}{\scshape\leftmark}
+
+% Empty part page style
+\aliaspagestyle{part}{empty}
+
+
+%============================== Hyperlinks ====================================
+
+% break also on hyphens inside the \url command
+\def\UrlBreaks{\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]%
+  \do\)\do\,\do\?\do\'\do+\do\=\do\#\do-} % \do- is new!
+
+\urlstyle{sf}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=black,
+  anchorcolor=black,
+  citecolor= black,
+  urlcolor=urlcolor,
+  breaklinks,
+  pdfborder=0 0 0,
+}
+
+
+%========== Table of contents ====================================
+
+\renewcommand{\cftpartfont}{\flushleft\Large}
+\renewcommand{\cftpartafterpnum}{\cftparfillskip}
+\cftsetindents{part}{0em}{0em}
+\renewcommand{\partnumberline}[1]{}
+
+\renewcommand{\cftchapterfont}{\bfseries\color{black}}
+\renewcommand{\cftchapterpagefont}{\bfseries\color{black}}
+\renewcommand{\cftchapterpresnum}{\hspace*{-1.5em}\color{black}}
+\cftsetindents{chapter}{1.5em}{0em}
+\renewcommand{\cftchapterafterpnum}{\cftparfillskip}
+
+\setlength{\cftbeforesectionskip}{.8em}
+\renewcommand{\cftsectionfont}{\small}
+\renewcommand{\cftsectionpagefont}{\small}
+\cftsetindents{section}{1.5em}{2.3em}
+\renewcommand{\cftsectionafterpnum}{\cftparfillskip}
+
+\renewcommand{\cftsubsectionfont}{\color{black}\footnotesize}
+\renewcommand{\cftsubsectionpagefont}{\footnotesize\color{black}}
+\renewcommand{\cftsubsectionpresnum}{\hspace*{1.5em}\color{black}\footnotesize}
+\cftsetindents{subsection}{1.5em}{4.6em}
+\renewcommand{\cftsubsectionafterpnum}{\cftparfillskip}
+
+
+
+%======== List of tables / figures ====================================
+
+
+\renewcommand{\cftfigureafterpnum}{\cftparfillskip}
+\renewcommand{\cfttableafterpnum}{\cftparfillskip}
+
+
+
+%=============== Title Page ====================================
+
+% Make the title page look a little bit better
+
+\renewcommand{\maketitle}{%
+
+  \begin{titlingpage}
+    \begin{center}
+        \null\vspace{2pc}
+
+        {\Huge\color{title}\MakeUppercase{Title}} \\
+        \vspace{1.5pc}
+        {\Huge\color{dark}\textit{of}} \\
+        \vspace{1.5pc}
+        {\Huge\color{title}\MakeUppercase{my great thesis}} \\
+        
+        \vspace{3pc}
+		{\color{light}\fourierOrnament{30}{120}{97}}
+        \vspace{3pc}
+        
+
+        {\huge\textit{This is the subtitle (if there is any)}} \\
+
+        ~\vfill        
+
+
+        {\Large John Doe} \\
+
+        \vspace{2pc}
+
+        {\large \today} \\
+
+        \vspace{2pc}
+
+        \textit{
+        Thesis presented for the fulfilling of my PhD degree }
+        
+        \vspace{2pc}
+        
+        \textsc{{\large
+        My research institute\\
+        My university \\
+        }}
+    \end{center}
+    \clearpage  
+  \end{titlingpage}
+}
+
+
+
+
+
+
+
+
+

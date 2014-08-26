@@ -1,0 +1,111 @@
+%author Guillaume Lobet, Université catholique de Louvain
+%lastchange 2012-08-17 
+%document  PhD thesis - Main document
+
+\documentclass[a4paper,
+%	english, 
+%	makeindex,
+%	twoside, 
+%	openright,
+%	showtrims, 
+	10pt
+%	final
+	]{memoir}       % Use the memoir class for more flexibility
+	
+
+\input{formating}
+
+%==================== DOCUMENT =================================
+
+\begin{document}
+
+%---------------------------------------------------------------------
+
+% Call the chapter style 
+\chapterstyle{glob}
+\pagestyle{ruled}
+
+\frontmatter
+
+    \maketitle
+	
+	\input{../chapters/frontmatter}	
+		
+	~\newpage
+	\thispagestyle{empty}	
+	~\newpage
+		
+
+%---------------------- Content -----------------------------------------------
+
+	\renewcommand*{\contentsname}{Short contents}	\setcounter{tocdepth}{-1}
+	\tableofcontents*	
+		
+	~\newpage
+	\thispagestyle{empty}	
+	~\newpage
+
+	\cftpagenumbersoff{part}
+	\renewcommand{\cftpartafterpnum}{\par\noindent\hrulefill\par}
+	\renewcommand*{\contentsname}{Table of contents}	\setcounter{tocdepth}{2}
+	\tableofcontents*	
+	
+	\newpage
+	\listoffigures* 
+	
+	\newpage
+	\listoftables* 
+
+%---------------------------------------------------------------------
+
+\mainmatter
+
+%---------------------------------------------------------------------
+
+\part[\textsc{Introduction and objectives}]{Introduction and objectives}
+
+	\input{../chapters/intro_quote}
+
+\pagestyle{plain}
+
+\chapter*{Introduction}
+	\label{chap:introduction}
+	\input{../chapters/introduction}	
+	\addcontentsline{toc}{chapter}{Introduction}
+
+\chapter*{Objectives}
+	\label{chap:objectives}
+	\input{../chapters/objectives}
+	\addcontentsline{toc}{chapter}{Objectives}
+
+\newpage \pagestyle{ruled}
+
+%---------------------------------------------------------------------
+
+\part[\textsc{Context}]{Context}
+	
+	\input{../chapters/context_quote}
+
+\chapter[First Chapter]{Long title of the first chapter}
+	\label{chap:1}
+	\input{../chapters/chap1}
+
+%---------------------------------------------------------------------
+
+\appendix
+
+\printbibliography[title=General bibliography]
+
+\newpage
+\input{../chapters/abstract}
+
+%---------------------------------------------------------------------
+
+\end{document}
+
+
+
+
+
+
+
